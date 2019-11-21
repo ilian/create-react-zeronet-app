@@ -8,8 +8,8 @@ if ! [ -x "$(command -v node)" ] || ! [ -x "$(command -v npx)" ]; then
 fi
 
 usage() {
-    echo "create-react-zeronet-app 1.0" >&2
-    echo "Usage: $(basename "$0") project-dir zeronet-site-dir [options]" >&2
+    echo "create-react-zeronet-app 1.0.1" >&2
+    echo "Usage: $(basename "$0") project-dir zeroNet-site-dir [options]" >&2
     echo "  project-dir: Path to an empty project directory" >&2
     echo "  zeronet-site-dir: Path to new Zeronet site" >&2
     echo "  options: arguments passed to create-react-app (e.g. --typescript)" >&2
@@ -17,10 +17,14 @@ usage() {
 }
 
 # Check arguments
+if [ "$#" -lt 2 ]; then
+    echo -e "error: not enough arguments provided" >&2
+    usage
+fi
 REACT_DIR="$1"
 SITE_DIR="$(realpath "$2")"
 if [ -z "$SITE_DIR" ] || ! [ -f "$SITE_DIR/content.json" ]; then
-    echo "error: first argument specify a path to a newly created Zeronet site" >&2
+    echo -e "error: second argument should specify a path to a newly created ZeroNet site" >&2
     usage
 fi
 
