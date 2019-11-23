@@ -29,7 +29,7 @@ BROWSER=none react-scripts start &
 
 while true; do
   echo watching $SITE_DIR
-  inotifywait -e close_write public
+  inotifywait -re close_write public
   rsync -av --update public/. "$SITE_DIR"
 done
 
