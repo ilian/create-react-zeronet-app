@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# react-scripts build removes the entire build directory so we can't build directly to
+# the site directory, as it may contain user content.
+# We build into a separate directory and overwrite the files to the target site directory.
+set -e
+source "$(dirname "$0")/config"
+react-scripts start
+mkdir -p "$SITE_DIR"/static/
+touch "$SITE_DIR"/static/FILES_WILL_BE_REMOVED_ON_BUILD
+rm -rf "$SITE_DIR"/precache-manifest.*.js "$SITE_DIR"/static/{css,js,media}/*
+cp -rf build/. "$SITE_DIR
+

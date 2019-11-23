@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+for cmd in inotifywait rsync perl; do
+  if ! [ -x "$(command -v $cmd)" ]; then
+    echo "error: $cmd is not installed" >&2
+    exit 1
+  fi
+done
+
+set -e
+trap 'clean; exit' SIGINT
+
+clean() {
+    echo "Cleaning up..." >&2
+    rm -rf dist/
+    rm $SITE_DIR/*.hot-update.*
+}
+
+source "$(dirname "$0")/config"
+PATH="$PATH:./node_modules/.bin"
+
+if ! [ -f ./package.json ]; then
+  echo "Current working directory is not the root of the project" >&2
+  exit
+fi
+
+mkdir -p dist
+BROWSER=none react-scripts start &
+
+while true; do
+  echo watching $SITE_DIR
+  inotifywait -e close_write dist
+  rsync -a dist/. "$SITE_DIR"
+done
+
