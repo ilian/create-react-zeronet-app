@@ -11,7 +11,7 @@ for cmd in node npx perl; do
 done
 
 usage() {
-    echo "create-react-zeronet-app 1.1.0" >&2
+    echo "create-react-zeronet-app 1.1.1" >&2
     echo "Usage: $(basename "$0") project-dir zeroNet-site-dir [options]" >&2
     echo "  project-dir: Path to an empty project directory" >&2
     echo "  zeronet-site-dir: Path to new Zeronet site" >&2

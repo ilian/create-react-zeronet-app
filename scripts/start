@@ -12,7 +12,7 @@ trap 'clean; exit' SIGINT
 
 clean() {
     echo "Cleaning up..." >&2
-    rm -rf dist/
+    rm dist
     rm $SITE_DIR/*.hot-update.*
 }
 
@@ -24,12 +24,12 @@ if ! [ -f ./package.json ]; then
   exit
 fi
 
-mkdir -p dist
+ln -s "$SITE_DIR" dist
 BROWSER=none react-scripts start &
 
 while true; do
   echo watching $SITE_DIR
-  inotifywait -e close_write dist
-  rsync -a dist/. "$SITE_DIR"
+  inotifywait -e close_write public
+  rsync -av --update public/. "$SITE_DIR"
 done
 
