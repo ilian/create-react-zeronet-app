@@ -15,9 +15,9 @@ The created project can be used to deploy a SPA using [react-router-dom](https:/
 ```
 $ ./create-react-zeronet-app.sh myproject ~/bin/zeronet/data/1PXDHHbcUfXFwRMC1gZgpCFSZGPZPEyp6F --typescript
 ```
-In the generated project directory
-    * run `npm run start` to build and deploy a development version with hot reloading
-    * run `npm run build` to build and deploy a production version of your site
+In the generated project directory:
+* run `npm run start` to build and deploy a development version with live reloading
+* run `npm run build` to build and deploy a production version of your site
 
 ## Notes on live reloading
 `npm run start` will prompt you to navigate to a local webserver.
